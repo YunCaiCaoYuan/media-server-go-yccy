@@ -9,7 +9,7 @@ import (
 	"github.com/notedit/sdp"
 )
 
-// Layer info
+// Layer Info
 type Layer struct {
 	// EncodingId str
 	EncodingId string
@@ -27,14 +27,14 @@ type Layer struct {
 	Bitrate uint
 }
 
-// Encoding info
+// Encoding Info
 type Encoding struct {
 	id           string
 	source       native.RTPIncomingSourceGroup
 	depacketizer native.StreamTrackDepacketizer
 }
 
-// GetID encoding id
+// GetID encoding Id
 func (e *Encoding) GetID() string {
 	return e.id
 }
@@ -52,10 +52,10 @@ func (e *Encoding) GetDepacketizer() native.StreamTrackDepacketizer {
 // IncomingTrackStopListener stop listener
 type IncomingTrackStopListener func()
 
-// IncomingStreamTrack Audio or Video track of a remote media stream
+// IncomingStreamTrack Audio or Video track of a remote Media stream
 type IncomingStreamTrack struct {
-	id                    string
-	media                 string
+	Id                    string
+	Media                 string
 	receiver              native.RTPReceiverFacade
 	counter               int
 	encodings             []*Encoding
@@ -67,7 +67,7 @@ type IncomingStreamTrack struct {
 	onDetachedListeners   []func()
 }
 
-// IncomingStats info
+// IncomingStats Info
 type IncomingStats struct {
 	LostPackets    uint
 	DropPackets    uint
@@ -81,7 +81,7 @@ type IncomingStats struct {
 	Layers         []*Layer
 }
 
-// IncomingAllStats info
+// IncomingAllStats Info
 type IncomingAllStats struct {
 	Rtt          uint
 	MinWaitTime  uint
@@ -97,7 +97,7 @@ type IncomingAllStats struct {
 	timestamp    int64
 }
 
-// ActiveEncoding info
+// ActiveEncoding Info
 type ActiveEncoding struct {
 	EncodingId   string
 	SimulcastIdx int
@@ -105,7 +105,7 @@ type ActiveEncoding struct {
 	Layers       []*Layer
 }
 
-// ActiveLayersInfo info
+// ActiveLayersInfo Info
 type ActiveLayersInfo struct {
 	Active   []*ActiveEncoding
 	Inactive []*ActiveEncoding
@@ -174,8 +174,8 @@ func getStatsFromIncomingSource(source native.RTPIncomingSource) *IncomingStats 
 func NewIncomingStreamTrack(media string, id string, receiver native.RTPReceiverFacade, sources map[string]native.RTPIncomingSourceGroup) *IncomingStreamTrack {
 	track := &IncomingStreamTrack{}
 
-	track.id = id
-	track.media = media
+	track.Id = id
+	track.Media = media
 	track.receiver = receiver
 	track.counter = 0
 	track.encodings = make([]*Encoding, 0)
@@ -191,7 +191,7 @@ func NewIncomingStreamTrack(media string, id string, receiver native.RTPReceiver
 
 		track.encodings = append(track.encodings, encoding)
 
-		//Add ssrcs to track info
+		//Add ssrcs to track Info
 		if source.GetMedia().GetSsrc() > 0 {
 			track.trackInfo.AddSSRC(source.GetMedia().GetSsrc())
 		}
@@ -238,29 +238,29 @@ func NewIncomingStreamTrack(media string, id string, receiver native.RTPReceiver
 	return track
 }
 
-// GetID get track id
+// GetID get track Id
 func (i *IncomingStreamTrack) GetID() string {
-	return i.id
+	return i.Id
 }
 
-// GetMedia get track media type "video" or "audio"
+// GetMedia get track Media type "video" or "audio"
 func (i *IncomingStreamTrack) GetMedia() string {
-	return i.media
+	return i.Media
 }
 
-// GetTrackInfo get track info
+// GetTrackInfo get track Info
 func (i *IncomingStreamTrack) GetTrackInfo() *sdp.TrackInfo {
 	return i.trackInfo
 }
 
-// GetSSRCs get all RTPIncomingSource include "media" "rtx" "fec"
+// GetSSRCs get all RTPIncomingSource include "Media" "rtx" "fec"
 func (i *IncomingStreamTrack) GetSSRCs() []map[string]native.RTPIncomingSource {
 
 	ssrcs := make([]map[string]native.RTPIncomingSource, 0)
 
 	for _, encoding := range i.encodings {
 		ssrcs = append(ssrcs, map[string]native.RTPIncomingSource{
-			"media": encoding.source.GetMedia(),
+			"Media": encoding.source.GetMedia(),
 			"rtx":   encoding.source.GetRtx(),
 			"fec":   encoding.source.GetFec(),
 		})
@@ -419,7 +419,7 @@ func (i *IncomingStreamTrack) GetFirstEncoding() *Encoding {
 	return nil
 }
 
-// GetEncoding get Encoding by id
+// GetEncoding get Encoding by Id
 func (i *IncomingStreamTrack) GetEncoding(encodingID string) *Encoding {
 
 	for _, encoding := range i.encodings {

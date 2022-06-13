@@ -62,7 +62,7 @@ func (t *Transponder) SetIncomingTrack(incomingTrack *IncomingStreamTrack) error
 
 	t.track = incomingTrack
 
-	// we need make sure first encoding id not nil
+	// we need make sure first encoding Id not nil
 	// todo check
 	// get first encoding
 	encoding := t.track.GetFirstEncoding()
@@ -241,7 +241,7 @@ func (t *Transponder) SetTargetBitrate(bitrate uint, traversal BitrateTraversal,
 	return current
 }
 
-// SelectEncoding by id
+// SelectEncoding by Id
 func (t *Transponder) SelectEncoding(encodingId string) {
 
 	if t.encodingId == encodingId {
@@ -255,7 +255,7 @@ func (t *Transponder) SelectEncoding(encodingId string) {
 	t.encodingId = encodingId
 }
 
-// GetSelectedEncoding get selected encoding id
+// GetSelectedEncoding get selected encoding Id
 func (t *Transponder) GetSelectedEncoding() string {
 	return t.encodingId
 }
@@ -270,7 +270,7 @@ func (t *Transponder) GetSelectedTemporalLayerId() int {
 	return t.temporalLayerId
 }
 
-// SelectLayer Select SVC temporatl and spatial layers. Only available for VP9 media.
+// SelectLayer Select SVC temporatl and spatial layers. Only available for VP9 Media.
 func (t *Transponder) SelectLayer(spatialLayerId, temporalLayerId int) {
 
 	spatialLayerId = Min(spatialLayerId, t.maxSpatialLayerId)
@@ -295,7 +295,6 @@ func (t *Transponder) SetMaximumLayers(maxSpatialLayerId, maxTemporalLayerId int
 	t.maxSpatialLayerId = maxSpatialLayerId
 	t.maxTemporalLayerId = maxTemporalLayerId
 }
-
 
 // Stop stop this transponder
 func (t *Transponder) Stop() {

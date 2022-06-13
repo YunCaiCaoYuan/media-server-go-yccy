@@ -99,7 +99,7 @@ type Transport struct {
 	sync.Mutex
 }
 
-// NewTransport create a new transport
+// NewTransport create a new Transport
 func NewTransport(bundle native.RTPBundleTransport, remoteIce *sdp.ICEInfo, remoteDtls *sdp.DTLSInfo, remoteCandidates []*sdp.CandidateInfo,
 	localIce *sdp.ICEInfo, localDtls *sdp.DTLSInfo, localCandidates []*sdp.CandidateInfo, disableSTUNKeepAlive bool) *Transport {
 
@@ -236,7 +236,7 @@ func (t *Transport) SetRemoteProperties(audio *sdp.MediaInfo, video *sdp.MediaIn
 		num = 0
 		for id, uri := range audio.GetExtensions() {
 			item := fmt.Sprintf("audio.ext.%d", num)
-			properties.SetPropertyInt(item+".id", id)
+			properties.SetPropertyInt(item+".Id", id)
 			properties.SetPropertyStr(item+".uri", uri)
 			num = num + 1
 		}
@@ -259,7 +259,7 @@ func (t *Transport) SetRemoteProperties(audio *sdp.MediaInfo, video *sdp.MediaIn
 		num = 0
 		for id, uri := range video.GetExtensions() {
 			item := fmt.Sprintf("video.ext.%d", num)
-			properties.SetPropertyInt(item+".id", id)
+			properties.SetPropertyInt(item+".Id", id)
 			properties.SetPropertyStr(item+".uri", uri)
 			num = num + 1
 		}
@@ -267,7 +267,6 @@ func (t *Transport) SetRemoteProperties(audio *sdp.MediaInfo, video *sdp.MediaIn
 	}
 
 	t.transport.SetRemoteProperties(properties)
-
 
 }
 
@@ -292,7 +291,7 @@ func (t *Transport) SetLocalProperties(audio *sdp.MediaInfo, video *sdp.MediaInf
 		num = 0
 		for id, uri := range audio.GetExtensions() {
 			item := fmt.Sprintf("audio.ext.%d", num)
-			properties.SetPropertyInt(item+".id", id)
+			properties.SetPropertyInt(item+".Id", id)
 			properties.SetPropertyStr(item+".uri", uri)
 			num = num + 1
 		}
@@ -314,7 +313,7 @@ func (t *Transport) SetLocalProperties(audio *sdp.MediaInfo, video *sdp.MediaInf
 		num = 0
 		for id, uri := range video.GetExtensions() {
 			item := fmt.Sprintf("video.ext.%d", num)
-			properties.SetPropertyInt(item+".id", id)
+			properties.SetPropertyInt(item+".Id", id)
 			properties.SetPropertyStr(item+".uri", uri)
 			num = num + 1
 		}
@@ -324,30 +323,30 @@ func (t *Transport) SetLocalProperties(audio *sdp.MediaInfo, video *sdp.MediaInf
 	t.transport.SetLocalProperties(properties)
 }
 
-// GetLocalDTLSInfo Get transport local DTLS info
+// GetLocalDTLSInfo Get Transport local DTLS Info
 func (t *Transport) GetLocalDTLSInfo() *sdp.DTLSInfo {
 
 	return t.localDtls
 }
 
-// GetLocalICEInfo Get transport local ICE info
+// GetLocalICEInfo Get Transport local ICE Info
 func (t *Transport) GetLocalICEInfo() *sdp.ICEInfo {
 
 	return t.localIce
 }
 
-// GetLocalCandidates Get local ICE candidates for this transport
+// GetLocalCandidates Get local ICE candidates for this Transport
 func (t *Transport) GetLocalCandidates() []*sdp.CandidateInfo {
 
 	return t.localCandidates
 }
 
-// GetRemoteCandidates Get remote ICE candidates for this transport
+// GetRemoteCandidates Get remote ICE candidates for this Transport
 func (t *Transport) GetRemoteCandidates() []*sdp.CandidateInfo {
 	return t.remoteCandidates
 }
 
-// AddRemoteCandidate register a remote candidate info. Only needed for ice-lite to ice-lite endpoints
+// AddRemoteCandidate register a remote candidate Info. Only needed for ice-lite to ice-lite endpoints
 func (t *Transport) AddRemoteCandidate(candidate *sdp.CandidateInfo) {
 
 	var address string
@@ -368,7 +367,7 @@ func (t *Transport) AddRemoteCandidate(candidate *sdp.CandidateInfo) {
 	t.remoteCandidates = append(t.remoteCandidates, candidate)
 }
 
-// CreateOutgoingStream Create new outgoing stream in this transport using StreamInfo
+// CreateOutgoingStream Create new outgoing stream in this Transport using StreamInfo
 func (t *Transport) CreateOutgoingStream(streamInfo *sdp.StreamInfo) *OutgoingStream {
 
 	if _, ok := t.outgoingStreams[streamInfo.GetID()]; ok {
@@ -419,7 +418,7 @@ func (t *Transport) CreateOutgoingStreamWithID(streamID string, audio bool, vide
 	return stream
 }
 
-// CreateOutgoingStreamTrack Create new outgoing track in this transport
+// CreateOutgoingStreamTrack Create new outgoing track in this Transport
 func (t *Transport) CreateOutgoingStreamTrack(media string, trackId string, ssrcs map[string]uint) *OutgoingStreamTrack {
 
 	var mediaType native.MediaFrameType = 0
@@ -433,7 +432,7 @@ func (t *Transport) CreateOutgoingStreamTrack(media string, trackId string, ssrc
 
 	source := native.NewRTPOutgoingSourceGroup(mediaType)
 
-	if ssrc, ok := ssrcs["media"]; ok {
+	if ssrc, ok := ssrcs["Media"]; ok {
 		source.GetMedia().SetSsrc(ssrc)
 	} else {
 		source.GetMedia().SetSsrc(NextSSRC())
@@ -463,7 +462,7 @@ func (t *Transport) CreateOutgoingStreamTrack(media string, trackId string, ssrc
 	return outgoingTrack
 }
 
-// CreateIncomingStream Create an incoming stream object from the media stream info objet
+// CreateIncomingStream Create an incoming stream object from the Media stream Info objet
 func (t *Transport) CreateIncomingStream(streamInfo *sdp.StreamInfo) *IncomingStream {
 
 	if _, ok := t.incomingStreams[streamInfo.GetID()]; ok {
@@ -479,7 +478,7 @@ func (t *Transport) CreateIncomingStream(streamInfo *sdp.StreamInfo) *IncomingSt
 	return incomingStream
 }
 
-// CreateIncomingStreamTrack Create new incoming stream in this transport. TODO: Simulcast is still not supported
+// CreateIncomingStreamTrack Create new incoming stream in this Transport. TODO: Simulcast is still not supported
 // You can use IncomingStream's CreateTrack
 func (t *Transport) CreateIncomingStreamTrack(media string, trackId string, ssrcs map[string]uint) *IncomingStreamTrack {
 
@@ -494,7 +493,7 @@ func (t *Transport) CreateIncomingStreamTrack(media string, trackId string, ssrc
 
 	source := native.NewRTPIncomingSourceGroup(mediaType, t.transport.GetTimeService())
 
-	if ssrc, ok := ssrcs["media"]; ok {
+	if ssrc, ok := ssrcs["Media"]; ok {
 		source.GetMedia().SetSsrc(ssrc)
 	} else {
 		source.GetMedia().SetSsrc(NextSSRC())
@@ -564,7 +563,6 @@ func (t *Transport) GetOutgoingStream(streamId string) *OutgoingStream {
 	return t.outgoingStreams[streamId]
 }
 
-
 // OnIncomingTrack register incoming track
 func (t *Transport) OnIncomingTrack(listener IncomingTrackListener) {
 	t.Lock()
@@ -586,14 +584,12 @@ func (t *Transport) OnDTLSICEState(listener DTLSStateListener) {
 	t.outDTLSStateListener = listener
 }
 
-
 func (t *Transport) GetLastActiveTime() uint64 {
 
 	return t.transport.GetLastActiveTime()
 }
 
-
-// Stop stop this transport
+// Stop stop this Transport
 func (t *Transport) Stop() {
 
 	if t.bundle == nil {

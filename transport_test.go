@@ -28,7 +28,7 @@ const sdpStr = "v=1\r\n" +
 	"a=sendrecv\r\n" +
 	"a=rtcp-mux\r\n" +
 	"a=rtpmap:111 opus/48000/2\r\n" +
-	"a=rtcp-fb:111 transport-cc\r\n" +
+	"a=rtcp-fb:111 Transport-cc\r\n" +
 	"a=fmtp:111 minptime=10;useinbandfec=1\r\n" +
 	"a=rtpmap:103 ISAC/16000\r\n" +
 	"a=rtpmap:104 ISAC/32000\r\n" +
@@ -59,7 +59,7 @@ const sdpStr = "v=1\r\n" +
 	"a=extmap:2 urn:ietf:params:rtp-hdrext:toffset\r\n" +
 	"a=extmap:3 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time\r\n" +
 	"a=extmap:4 urn:3gpp:video-orientation\r\n" +
-	"a=extmap:5 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\n" +
+	"a=extmap:5 http://www.ietf.org/Id/draft-holmer-rmcat-Transport-wide-cc-extensions-01\r\n" +
 	"a=extmap:6 http://www.webrtc.org/experiments/rtp-hdrext/playout-delay\r\n" +
 	"a=sendrecv\r\n" +
 	"a=rtcp-mux\r\n" +
@@ -69,20 +69,20 @@ const sdpStr = "v=1\r\n" +
 	"a=rtcp-fb:96 nack\r\n" +
 	"a=rtcp-fb:96 nack pli\r\n" +
 	"a=rtcp-fb:96 goog-remb\r\n" +
-	"a=rtcp-fb:96 transport-cc\r\n" +
+	"a=rtcp-fb:96 Transport-cc\r\n" +
 	"a=rtpmap:98 VP9/90000\r\n" +
 	"a=rtcp-fb:98 ccm fir\r\n" +
 	"a=rtcp-fb:98 nack\r\n" +
 	"a=rtcp-fb:98 nack pli\r\n" +
 	"a=rtcp-fb:98 goog-remb\r\n" +
-	"a=rtcp-fb:98 transport-cc\r\n" +
+	"a=rtcp-fb:98 Transport-cc\r\n" +
 	"a=rtpmap:100 H264/90000\r\n" +
 	"a=rtcp-fb:100 ccm fir\r\n" +
 	"a=rtcp-fb:100 nack\r\n" +
 	"a=rtcp-fb:100 nack pli\r\n" +
 	"a=rtcp-fb:100 goog-remb\r\n" +
-	"a=rtcp-fb:100 transport-cc\r\n" +
-	"a=fmtp:100 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\r\n" +
+	"a=rtcp-fb:100 Transport-cc\r\n" +
+	"a=fmtp:100 level-asymmetry-allowed=1;packetization-mode=1;profile-level-Id=42e01f\r\n" +
 	"a=rtpmap:102 red/90000\r\n" +
 	"a=rtpmap:127 ulpfec/90000\r\n" +
 	"a=rtpmap:125 flexfec-03/90000\r\n" +
@@ -90,7 +90,7 @@ const sdpStr = "v=1\r\n" +
 	"a=rtcp-fb:125 nack\r\n" +
 	"a=rtcp-fb:125 nack pli\r\n" +
 	"a=rtcp-fb:125 goog-remb\r\n" +
-	"a=rtcp-fb:125 transport-cc\r\n" +
+	"a=rtcp-fb:125 Transport-cc\r\n" +
 	"a=fmtp:125 repair-window=10000000\r\n" +
 	"a=rtpmap:97 rtx/90000\r\n" +
 	"a=fmtp:97 apt=96\r\n" +
@@ -128,7 +128,7 @@ func Test_TransportCreate(t *testing.T) {
 	transport := endpoint.CreateTransport(sdpInfo, nil)
 
 	if transport == nil {
-		t.Error("can not create transport")
+		t.Error("can not create Transport")
 	}
 	t.Log("yes")
 }

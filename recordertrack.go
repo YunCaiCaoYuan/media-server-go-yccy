@@ -20,7 +20,7 @@ func NewRecorderTrack(id string, track *IncomingStreamTrack, encoding *Encoding)
 	return recorderTrack
 }
 
-// GetID  get recorder track id
+// GetID  get recorder track Id
 func (r *RecorderTrack) GetID() string {
 	return r.id
 }
@@ -30,7 +30,7 @@ func (r *RecorderTrack) GetTrack() *IncomingStreamTrack {
 	return r.track
 }
 
-// GetEncoding get encoding info
+// GetEncoding get encoding Info
 func (r *RecorderTrack) GetEncoding() *Encoding {
 	return r.encoding
 }

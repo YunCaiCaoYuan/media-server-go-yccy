@@ -110,7 +110,7 @@ func NewStreamerSessionWithLocalPort(port int, media *sdp.MediaInfo) *StreamerSe
 	return streamerSession
 }
 
-// GetID get id
+// GetID get Id
 func (s *StreamerSession) GetID() string {
 	return s.id
 }

@@ -8,7 +8,7 @@ import (
 )
 
 // Endpoint is an endpoint represent an UDP server socket.
-// The endpoint will process STUN requests in order to be able to associate the remote ip:port with the registered transport and forward any further data comming from that transport.
+// The endpoint will process STUN requests in order to be able to associate the remote ip:port with the registered Transport and forward any further data comming from that Transport.
 // Being a server it is ICE-lite.
 type Endpoint struct {
 	ip              string
@@ -47,7 +47,7 @@ func (e *Endpoint) SetAffinity(cpu int) {
 	e.bundle.SetAffinity(cpu)
 }
 
-// CreateTransport create a new transport object and register it with the remote ICE username and password
+// CreateTransport create a new Transport object and register it with the remote ICE username and password
 // disableSTUNKeepAlive - Disable ICE/STUN keep alives, required for server to server transports, set this to false if you do not how to use it
 func (e *Endpoint) CreateTransport(remoteSdp *sdp.SDPInfo, localSdp *sdp.SDPInfo, options ...bool) *Transport {
 
@@ -84,12 +84,12 @@ func (e *Endpoint) CreateTransport(remoteSdp *sdp.SDPInfo, localSdp *sdp.SDPInfo
 	return transport
 }
 
-// GetLocalCandidates Get local ICE candidates for this endpoint. It will be shared by all the transport associated to this endpoint.
+// GetLocalCandidates Get local ICE candidates for this endpoint. It will be shared by all the Transport associated to this endpoint.
 func (e *Endpoint) GetLocalCandidates() []*sdp.CandidateInfo {
 	return []*sdp.CandidateInfo{e.candidate}
 }
 
-// GetDTLSFingerprint Get local DTLS fingerprint for this endpoint. It will be shared by all the transport associated to this endpoint
+// GetDTLSFingerprint Get local DTLS fingerprint for this endpoint. It will be shared by all the Transport associated to this endpoint
 func (e *Endpoint) GetDTLSFingerprint() string {
 	return e.fingerprint
 }
@@ -117,8 +117,7 @@ func (e *Endpoint) CreateOffer(video *sdp.Capability, audio *sdp.Capability) *sd
 	return sdp.Create(ice, dtls, candidates, capabilities)
 }
 
-
-// Stop stop the endpoint UDP server and terminate any associated transport
+// Stop stop the endpoint UDP server and terminate any associated Transport
 func (e *Endpoint) Stop() {
 
 	if e.bundle == nil {

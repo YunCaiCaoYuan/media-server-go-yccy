@@ -7,7 +7,7 @@ import (
 	"github.com/notedit/sdp"
 )
 
-// OutgoingStreamTrack Audio or Video track of a media stream sent to a remote peer
+// OutgoingStreamTrack Audio or Video track of a Media stream sent to a remote peer
 type OutgoingStreamTrack struct {
 	id              string
 	media           string
@@ -22,7 +22,7 @@ type OutgoingStreamTrack struct {
 	// todo outercallback
 }
 
-// OutgoingStats stats info
+// OutgoingStats stats Info
 type OutgoingStats struct {
 	NumPackets     uint
 	NumRTCPPackets uint
@@ -31,7 +31,7 @@ type OutgoingStats struct {
 	Bitrate        uint
 }
 
-// OutgoingStatss stats info
+// OutgoingStatss stats Info
 type OutgoingStatss struct {
 	Media     *OutgoingStats
 	Rtx       *OutgoingStats
@@ -83,29 +83,28 @@ func newOutgoingStreamTrack(media string, id string, sender native.RTPSenderFaca
 		track.trackInfo.AddSourceGroup(sourceGroup)
 	}
 
-
 	track.onMuteListeners = make([]func(bool), 0)
 	track.onStopListeners = make([]func(), 0)
 
 	return track
 }
 
-// GetID  get track id
+// GetID  get track Id
 func (o *OutgoingStreamTrack) GetID() string {
 	return o.id
 }
 
-// GetMedia get media type
+// GetMedia get Media type
 func (o *OutgoingStreamTrack) GetMedia() string {
 	return o.media
 }
 
-// GetTrackInfo get track info
+// GetTrackInfo get track Info
 func (o *OutgoingStreamTrack) GetTrackInfo() *sdp.TrackInfo {
 	return o.trackInfo
 }
 
-// GetStats get stats info
+// GetStats get stats Info
 func (o *OutgoingStreamTrack) GetStats() *OutgoingStatss {
 
 	if o.statss == nil {
@@ -126,7 +125,7 @@ func (o *OutgoingStreamTrack) GetStats() *OutgoingStatss {
 func (o *OutgoingStreamTrack) GetSSRCs() map[string]native.RTPOutgoingSource {
 
 	return map[string]native.RTPOutgoingSource{
-		"media": o.source.GetMedia(),
+		"Media": o.source.GetMedia(),
 		"rtx":   o.source.GetRtx(),
 		"fec":   o.source.GetFec(),
 	}
@@ -153,7 +152,7 @@ func (o *OutgoingStreamTrack) Mute(muting bool) {
 	}
 }
 
-// AttachTo Listen media from the incoming stream track and send it to the remote peer of the associated transport
+// AttachTo Listen Media from the incoming stream track and send it to the remote peer of the associated Transport
 func (o *OutgoingStreamTrack) AttachTo(incomingTrack *IncomingStreamTrack) *Transponder {
 
 	// detach first
@@ -209,11 +208,10 @@ func (o *OutgoingStreamTrack) Stop() {
 	o.sender = nil
 }
 
-func (o *OutgoingStreamTrack) DeleteOutgoingSourceGroup(transport native.DTLSICETransport)  {
+func (o *OutgoingStreamTrack) DeleteOutgoingSourceGroup(transport native.DTLSICETransport) {
 	if o.source != nil {
 		transport.RemoveOutgoingSourceGroup(o.source)
 		native.DeleteRTPOutgoingSourceGroup(o.source)
 		o.source = nil
 	}
 }
-

@@ -8,7 +8,7 @@ import (
 	"github.com/notedit/sdp"
 )
 
-// OutgoingStream  represent the media stream sent to a remote peer
+// OutgoingStream  represent the Media stream sent to a remote peer
 type OutgoingStream struct {
 	id                  string
 	transport           native.DTLSICETransport
@@ -39,12 +39,12 @@ func NewOutgoingStream(transport native.DTLSICETransport, info *sdp.StreamInfo) 
 	return stream
 }
 
-// GetID get id
+// GetID get Id
 func (o *OutgoingStream) GetID() string {
 	return o.id
 }
 
-// GetStats Get statistics for all tracks in the stream
+// GetStats Get statistics for all Tracks in the stream
 func (o *OutgoingStream) GetStats() map[string]*OutgoingStatss {
 
 	stats := map[string]*OutgoingStatss{}
@@ -59,7 +59,7 @@ func (o *OutgoingStream) IsMuted() bool {
 	return o.muted
 }
 
-// Mute Mute/Unmute this stream and all the tracks in it
+// Mute Mute/Unmute this stream and all the Tracks in it
 func (o *OutgoingStream) Mute(muting bool) {
 
 	for _, track := range o.tracks {
@@ -71,7 +71,7 @@ func (o *OutgoingStream) Mute(muting bool) {
 	}
 }
 
-// AttachTo Listen media from the incoming stream and send it to the remote peer of the associated transport
+// AttachTo Listen Media from the incoming stream and send it to the remote peer of the associated Transport
 func (o *OutgoingStream) AttachTo(incomingStream *IncomingStream) []*Transponder {
 
 	o.Detach()
@@ -108,7 +108,7 @@ func (o *OutgoingStream) AttachTo(incomingStream *IncomingStream) []*Transponder
 	return transponders
 }
 
-// Detach Stop listening for media
+// Detach Stop listening for Media
 func (o *OutgoingStream) Detach() {
 
 	o.l.Lock()
@@ -118,7 +118,7 @@ func (o *OutgoingStream) Detach() {
 	}
 }
 
-// GetStreamInfo get the stream info
+// GetStreamInfo get the stream Info
 func (o *OutgoingStream) GetStreamInfo() *sdp.StreamInfo {
 	return o.info
 }
@@ -130,7 +130,7 @@ func (o *OutgoingStream) GetTrack(trackID string) *OutgoingStreamTrack {
 	return o.tracks[trackID]
 }
 
-// GetTracks get all the tracks
+// GetTracks get all the Tracks
 func (o *OutgoingStream) GetTracks() []*OutgoingStreamTrack {
 	o.l.Lock()
 	defer o.l.Unlock()
@@ -141,7 +141,7 @@ func (o *OutgoingStream) GetTracks() []*OutgoingStreamTrack {
 	return tracks
 }
 
-// GetAudioTracks Get an array of the media stream audio tracks
+// GetAudioTracks Get an array of the Media stream audio Tracks
 func (o *OutgoingStream) GetAudioTracks() []*OutgoingStreamTrack {
 	o.l.Lock()
 	defer o.l.Unlock()
@@ -154,7 +154,7 @@ func (o *OutgoingStream) GetAudioTracks() []*OutgoingStreamTrack {
 	return audioTracks
 }
 
-// GetVideoTracks Get an array of the media stream video tracks
+// GetVideoTracks Get an array of the Media stream video Tracks
 func (o *OutgoingStream) GetVideoTracks() []*OutgoingStreamTrack {
 	o.l.Lock()
 	defer o.l.Unlock()
@@ -222,7 +222,7 @@ func (o *OutgoingStream) CreateTrack(track *sdp.TrackInfo) *OutgoingStreamTrack 
 
 	// TODO
 	// runtime.SetFinalizer(source, func(source native.RTPOutgoingSourceGroup) {
-	// 	o.transport.RemoveOutgoingSourceGroup(source)
+	// 	o.Transport.RemoveOutgoingSourceGroup(source)
 	// })
 
 	o.l.Lock()
@@ -240,7 +240,6 @@ func (o *OutgoingStream) CreateTrack(track *sdp.TrackInfo) *OutgoingStreamTrack 
 func (o *OutgoingStream) OnTrack(listener func(*OutgoingStreamTrack)) {
 	o.onAddTrackListeners = append(o.onAddTrackListeners, listener)
 }
-
 
 // Stop stop the remote stream
 func (o *OutgoingStream) Stop() {

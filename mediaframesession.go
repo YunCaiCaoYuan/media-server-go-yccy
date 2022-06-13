@@ -14,7 +14,7 @@ type MediaFrameSession struct {
 	session  native.MediaFrameSessionFacade
 }
 
-// NewMediaFrameSession create media frame session
+// NewMediaFrameSession create Media frame session
 func NewMediaFrameSession(media *sdp.MediaInfo) *MediaFrameSession {
 
 	mediaSession := &MediaFrameSession{}
@@ -53,7 +53,7 @@ func (s *MediaFrameSession) GetIncomingStreamTrack() *IncomingStreamTrack {
 	return s.incoming
 }
 
-// Push push raw media frame
+// Push push raw Media frame
 func (s *MediaFrameSession) Push(rtp []byte) {
 	if rtp == nil || len(rtp) == 0 {
 		return
